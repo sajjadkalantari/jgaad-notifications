@@ -4,6 +4,7 @@ import { NotificationsService } from '../notifications.service';
 import { NotificationDto } from '../notification.dto';
 import { Notification } from '../notification.schema';
 import { getModelToken } from '@nestjs/mongoose';
+import { CommandBus, EventBus } from '@nestjs/cqrs';
 
 describe('NotificationsController', () => {
     let controller: NotificationsController;
@@ -15,7 +16,7 @@ describe('NotificationsController', () => {
             providers: [NotificationsService, {
                 provide: getModelToken(Notification.name),
                 useValue: {},
-            },],
+            }, EventBus, CommandBus],
         }).compile();
 
         controller = module.get<NotificationsController>(NotificationsController);
