@@ -12,9 +12,9 @@ export class NotificationsService {
     constructor(@InjectModel(Notification.name) private readonly notificationModel: Model<Notification>) { }
 
     async getNotifications(email: string): Promise<NotificationDto> {
-        const notification = await this.notificationModel.findOne({ email }).lean().exec();        
-        if(!notification) throw new NotFoundException("user notifications not found");
-        const response = plainToClass(NotificationDto, notification);        
+        const notification = await this.notificationModel.findOne({ email }).lean().exec();
+        if (!notification) throw new NotFoundException("user notifications not found");
+        const response = plainToClass(NotificationDto, notification);
         return response;
     }
 
@@ -22,11 +22,11 @@ export class NotificationsService {
         let notificationDto = plainToClass(NotificationDto, notification);
         const errors = await validate(notificationDto);
         if (errors.length > 0) {
-          throw new InvalidRequestException(`invalid request`, errors);
+            throw new InvalidRequestException(`invalid request`, errors);
         }
-       
-        const notificationDoc = await this.notificationModel.create(notificationDto);                
-        
+
+        const notificationDoc = await this.notificationModel.create(notificationDto);
+
         return notificationDto;
     }
 }

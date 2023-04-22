@@ -6,20 +6,20 @@ import { NotificationDto } from './notification.dto';
 
 @Controller('notifications')
 export class NotificationsController {
-    constructor(private readonly notificationsService: NotificationsService) {}
+  constructor(private readonly notificationsService: NotificationsService) { }
 
-    @Get('messages/:email')
-    @ApiResponse({type: ResponseGeneric<NotificationDto>})
-    async getNotifications(@Param('email') email: string): Promise<ResponseGeneric<NotificationDto>> {
-      const data = await this.notificationsService.getNotifications(email);
-      return new ResponseGeneric<NotificationDto>(data);
-    }
+  @Get('messages/:email')
+  @ApiResponse({ type: ResponseGeneric<NotificationDto> })
+  async getNotifications(@Param('email') email: string): Promise<ResponseGeneric<NotificationDto>> {
+    const data = await this.notificationsService.getNotifications(email);
+    return new ResponseGeneric<NotificationDto>(data);
+  }
 
-    @Post('add-notifications')
-    @ApiBody({ type: NotificationDto })
-    @ApiResponse({type: ResponseGeneric<NotificationDto>})
-    async addNotifications(@Body() req: NotificationDto): Promise<ResponseGeneric<NotificationDto>> {
-      const data = await this.notificationsService.addNotification(req);
-      return new ResponseGeneric<NotificationDto>(data);
-    }
+  @Post('add-notifications')
+  @ApiBody({ type: NotificationDto })
+  @ApiResponse({ type: ResponseGeneric<NotificationDto> })
+  async addNotifications(@Body() req: NotificationDto): Promise<ResponseGeneric<NotificationDto>> {
+    const data = await this.notificationsService.addNotification(req);
+    return new ResponseGeneric<NotificationDto>(data);
+  }
 }
