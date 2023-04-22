@@ -62,6 +62,22 @@ describe('NotificationsService', () => {
     expect(notification).toEqual(newNotification);
     expect(notificationModel.create).toBeCalledWith(newNotification);
   });
+
+  it('should throw email validation error', async () => {
+    //Arrange
+    const newNotification = { email: 'test.com', notifications: ['example2 notification'] };
+
+    //Act & Arrange
+    await expect(service.addNotification(newNotification)).rejects.toThrow("invalid request");
+  });
+
+  it('should throw notifications validation error', async () => {
+    //Arrange
+    const newNotification = { email: 'test@test.com', notifications: null };
+
+    //Act & Arrange
+    await expect(service.addNotification(newNotification)).rejects.toThrow("invalid request");
+  });
 });
 
 
