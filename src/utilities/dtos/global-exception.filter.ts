@@ -17,6 +17,12 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
             response.status(status).json(ResponseBase.failed(...exception.errors));
 
         }
+        else if (exception instanceof NotFoundException) {
+            // Handle custom type errors
+            const status = exception.getStatus();
+            response.status(status).json(ResponseBase.failed(...exception.message));
+
+        }
         else if (exception instanceof MongooseValidationError) {
             response.status(HttpStatus.BAD_REQUEST).json(ResponseBase.failed(exception.message));
         }
@@ -37,5 +43,11 @@ export class InvalidRequestException extends HttpException {
     constructor(message: string, errors: ValidationError[]) {
         super(message, HttpStatus.BAD_REQUEST);
         this.errors = errors.map(e => `${e.property}: ${JSON.stringify(e.constraints)}`);
+    }
+}
+
+export class NotFoundException extends HttpException {
+    constructor(message: string) {
+        super(message, HttpStatus.NOT_FOUND);
     }
 }
