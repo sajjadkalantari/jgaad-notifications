@@ -2,9 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
-  imports: [],
+  imports: [
+    JwtModule.register({
+      secret: 'your-secret-key-here',
+      signOptions: { expiresIn: '1h' },
+    })
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
