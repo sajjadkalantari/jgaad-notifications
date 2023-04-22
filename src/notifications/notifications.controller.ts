@@ -1,7 +1,7 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
 import { ApiBody, ApiResponse } from '@nestjs/swagger';
-import { ResponseGeneric } from 'src/utilities/dtos/response.dto';
+import { ResponseGeneric } from '../utilities/dtos/response.dto';
 import { NotificationDto } from './notification.dto';
 
 @Controller('notifications')
