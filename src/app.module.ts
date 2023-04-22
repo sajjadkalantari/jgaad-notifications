@@ -3,13 +3,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { JwtModule } from '@nestjs/jwt';
+import { NotificationsModule } from './notifications/notifications.module';
 
 @Module({
   imports: [
     JwtModule.register({
       secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '1h' },
-    })
+    }),
+    NotificationsModule
   ],
   controllers: [AppController],
   providers: [AppService],
