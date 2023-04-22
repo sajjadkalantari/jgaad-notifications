@@ -25,8 +25,8 @@ export class NotificationsService {
           throw new InvalidRequestException(`invalid request`, errors);
         }
        
-        const notificationDoc = new this.notificationModel(notificationDto);                
-        await notificationDoc.save();
+        const notificationDoc = await this.notificationModel.create(notificationDto);                
+        
         return notificationDto;
     }
 }
