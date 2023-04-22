@@ -5,9 +5,13 @@ import { GlobalExceptionsFilter } from './utilities/dtos/global-exception.filter
 async function bootstrap() {
   dotenv.config();
   const app = await NestFactory.create(AppModule);
-  await AppModule.setupSwagger(app); // add this line
+  
+  //add swagger
+  await AppModule.setupSwagger(app);
 
+  //add global exception handler
   app.useGlobalFilters(new GlobalExceptionsFilter());
+  
   await app.listen(3000);
 }
 bootstrap();
