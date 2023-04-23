@@ -6,7 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { AuthenticationResponse, UserDto } from './user.dto';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { InvalidRequestException, NotFoundException } from 'src/utilities/dtos/global-exception.filter';
+import { InvalidRequestException, NotFoundException } from '../utilities/dtos/global-exception.filter';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
