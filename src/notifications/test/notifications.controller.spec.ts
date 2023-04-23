@@ -31,7 +31,7 @@ describe('NotificationsController', () => {
             jest.spyOn(service, 'getNotifications').mockResolvedValue(userNotification);
 
             //Act
-            const result = await controller.getNotifications(userNotification.email);
+            const result = await controller.getNotifications({ user: { email: userNotification.email } });
 
             //Assert
             expect(result.data).toEqual(userNotification);

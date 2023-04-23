@@ -3,7 +3,7 @@ import { NotificationsService } from './notifications.service';
 import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseGeneric } from '../utilities/dtos/response.dto';
 import { NotificationDto } from './notification.dto';
-import { JwtAuthGuard } from 'src/utilities/jwt-auth.guard';
+import { JwtAuthGuard } from '../utilities/jwt-auth.guard';
 
 @Controller('notifications')
 @ApiTags('Notificatios')
