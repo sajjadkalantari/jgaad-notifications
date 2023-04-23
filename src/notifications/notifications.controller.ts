@@ -1,10 +1,11 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
-import { ApiBody, ApiResponse } from '@nestjs/swagger';
+import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseGeneric } from '../utilities/dtos/response.dto';
 import { NotificationDto } from './notification.dto';
 
 @Controller('notifications')
+@ApiTags('Notificatios')
 export class NotificationsController {
   constructor(private readonly notificationsService: NotificationsService) { }
 
