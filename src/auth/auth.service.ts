@@ -6,7 +6,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { AuthenticationResponse, UserDto } from './user.dto';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
-import { InvalidRequestException } from 'src/utilities/dtos/global-exception.filter';
+import { InvalidRequestException, NotFoundException } from 'src/utilities/dtos/global-exception.filter';
 import * as bcrypt from 'bcrypt';
 @Injectable()
 export class AuthService {
@@ -14,6 +14,22 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) { }
 
+    async loginUser(data: UserDto): Promise<AuthenticationResponse> {
+        let userDto = plainToClass(UserDto, data);
+        const errors = await validate(userDto);
+
+        if (errors.length > 0)
+            throw new InvalidRequestException(`invalid request`, errors);
+
+        var user = await this.userModel.findOne({ email: data.email }).lean().exec();
+
+        if (!user) throw new NotFoundException("user not found");
+        
+        if (!(await bcrypt.compare(data.password, user.password))) throw new NotFoundException(`user not found`);
+
+        return await this.generateToken(data);
+
+    }
 
     async registerUser(createUserDto: UserDto): Promise<AuthenticationResponse> {
         let userDto = plainToClass(UserDto, createUserDto);

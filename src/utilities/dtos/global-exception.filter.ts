@@ -20,7 +20,7 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
         else if (exception instanceof NotFoundException) {
             // Handle custom type errors
             const status = exception.getStatus();
-            response.status(status).json(ResponseBase.failed(...exception.message));
+            response.status(status).json(ResponseBase.failed(exception.message));
 
         }
         else if (exception instanceof MongooseValidationError) {

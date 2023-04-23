@@ -18,7 +18,7 @@ export class AppModule {
     
     const options = new DocumentBuilder()
       .setTitle('Jgaad API')
-      .setDescription('test notifications api')
+      .setDescription('api documentations')
       .setVersion('1.0')
       .build();
 
