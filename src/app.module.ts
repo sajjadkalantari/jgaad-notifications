@@ -5,7 +5,7 @@ import { NotificationsModule } from './notifications/notifications.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
-import { JwtStrategy } from './utilities/jwt-auth.guard';
+import { JwtStrategy } from "./utilities/jwt.strategy";
 
 @Module({
   imports: [
