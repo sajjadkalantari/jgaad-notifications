@@ -1,4 +1,4 @@
-import { Catch, ExceptionFilter, HttpException, ArgumentsHost, HttpStatus, ValidationError } from '@nestjs/common';
+import { Catch, ExceptionFilter, HttpException, ArgumentsHost, HttpStatus, ValidationError, UnauthorizedException } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { ResponseBase } from './response.dto';
 import { Error as MongooseValidationError } from 'mongoose';
@@ -20,20 +20,18 @@ export class GlobalExceptionsFilter implements ExceptionFilter {
         else if (exception instanceof NotFoundException) {
             // Handle custom type errors
             const status = exception.getStatus();
-            response.status(status).json(ResponseBase.failed(exception.message));
+            return response.status(status).json(ResponseBase.failed(exception.message));
 
         }
         else if (exception instanceof MongooseValidationError) {
             response.status(HttpStatus.BAD_REQUEST).json(ResponseBase.failed(exception.message));
         }
+        else if (exception instanceof UnauthorizedException) {
+            response.status(HttpStatus.UNAUTHORIZED).json(ResponseBase.failed(exception.message));
+        }
         else {
             console.error(exception);
-            response.status(500).json({
-                statusCode: 500,
-                message: 'Internal server error',
-                timestamp: new Date().toISOString(),
-                path: request.url,
-            });
+            response.status(500).json(ResponseBase.failed("Internal server error!"));
         }
     }
 }

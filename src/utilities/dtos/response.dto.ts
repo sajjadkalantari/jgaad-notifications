@@ -16,18 +16,15 @@ export class ResponseBase {
     errors?: string[];
 
     static failed(...errors: string[]): ResponseBase {
-        return new ResponseGeneric({
+        return {
             succeeded: false,
             message: errors?.[0],
             errors,
-        });
+        } as ResponseBase;
     }
 
     static succeed(message: string): ResponseBase {
-        return new ResponseGeneric({
-            succeeded: true,
-            message,
-        });
+        return new ResponseGeneric(null, message);
     }
 
     constructor(data?: Partial<ResponseBase>) {

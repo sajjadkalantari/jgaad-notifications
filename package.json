@@ -26,6 +26,7 @@
     "@nestjs/event-emitter": "^1.4.1",
     "@nestjs/jwt": "^10.0.3",
     "@nestjs/mongoose": "^9.2.2",
+    "@nestjs/passport": "^9.0.3",
     "@nestjs/platform-express": "^9.0.0",
     "@nestjs/swagger": "^6.3.0",
     "bcrypt": "^5.1.0",
@@ -33,6 +34,7 @@
     "class-validator": "^0.14.0",
     "dotenv": "^16.0.3",
     "mongoose": "^7.0.4",
+    "passport-jwt": "^4.0.1",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0"
   },

@@ -4,13 +4,22 @@ import { JwtModule } from '@nestjs/jwt';
 import { NotificationsModule } from './notifications/notifications.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
+import { PassportModule } from '@nestjs/passport';
+import { JwtStrategy } from './utilities/jwt-auth.guard';
 
 @Module({
   imports: [
     MongooseModule.forRoot("mongodb://127.0.0.1:27017/jgaad"),
     NotificationsModule,
-    AuthModule
+    AuthModule,
+    PassportModule.register({ defaultStrategy: 'jwt' }),
+    JwtModule.register({
+      secret: "your-secret-key",
+      signOptions: { expiresIn: '30d' },
+    }),
   ],
+  providers: [JwtStrategy],
+
 })
 export class AppModule {
 
@@ -20,6 +29,7 @@ export class AppModule {
       .setTitle('Jgaad API')
       .setDescription('api documentations')
       .setVersion('1.0')
+      .addBearerAuth()
       .build();
 
     const document = SwaggerModule.createDocument(app, options);

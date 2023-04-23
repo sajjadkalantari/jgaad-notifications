@@ -1,11 +1,11 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { NotificationDto } from './notification.dto';
 import { plainToClass } from 'class-transformer';
 import { Notification, NotificationSchema } from './notification.schema';
 import { validate } from 'class-validator';
-import { InvalidRequestException } from '../utilities/dtos/global-exception.filter';
+import { InvalidRequestException, NotFoundException } from '../utilities/dtos/global-exception.filter';
 import { NotificationCreatedEvent } from './notifications.event';
 import { EventBus } from '@nestjs/cqrs';
 
