@@ -40,9 +40,7 @@ export class AuthService {
 
         userDto.password = await this.hashPass(userDto.password);
         const userDoc = await this.userModel.create(userDto);
-
-        if (!userDoc)
-            throw new Error(`invalid request`);
+        if (!userDoc) throw new Error(`invalid request`);
 
         return await this.generateToken(userDto);
     }
