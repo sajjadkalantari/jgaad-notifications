@@ -49,9 +49,10 @@ example:
 - add any kind of API authentication, explaining your choice <br>
 	JWT tokens because using JWTs as an API authentication method can provide a secure and scalable way to authenticate users without requiring the server to maintain session information. It is a widely adopted standard that is supported by many libraries and frameworks, making it easy to implement in your application, also JWTs are stateless meaningthat the server does not need to keep track of any session information and can be used for cross-domain authentication
 
-- Please include an OpenApi in the repo to try your project
+- Please include an OpenApi in the repo to try your project <br>
 	swagger is added to project you can check it on
-	http://localhost:3000/docs
+	http://localhost:3000/docs <br>
+  also there is swagger.json file on the root of project
 
 
 
