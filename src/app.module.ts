@@ -6,15 +6,16 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './auth/auth.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from "./utilities/jwt.strategy";
+import * as fs from 'fs';
 
 @Module({
   imports: [
-    MongooseModule.forRoot("mongodb://127.0.0.1:27017/jgaad"),
+    MongooseModule.forRoot(process.env.MONGO_COONECTION_STRING),
     NotificationsModule,
     AuthModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
-      secret: "your-secret-key",
+      secret: process.env.JWT_SECRET,
       signOptions: { expiresIn: '30d' },
     }),
   ],
@@ -35,5 +36,7 @@ export class AppModule {
     const document = SwaggerModule.createDocument(app, options);
 
     SwaggerModule.setup('docs', app, document);
+    fs.writeFileSync('swagger.json', JSON.stringify(document));
+
   }
 }

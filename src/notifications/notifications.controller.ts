@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { NotificationsService } from './notifications.service';
-import { ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ResponseGeneric } from '../utilities/dtos/response.dto';
 import { NotificationDto } from './notification.dto';
 import { JwtAuthGuard } from '../utilities/jwt-auth.guard';
@@ -12,6 +12,7 @@ export class NotificationsController {
 
   @Get('messages')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiResponse({ type: ResponseGeneric<NotificationDto> }) 
   async getNotifications(@Req() request): Promise<ResponseGeneric<NotificationDto>> {
     const data = await this.notificationsService.getNotifications(request.user.email);
@@ -21,6 +22,7 @@ export class NotificationsController {
   @Post('add-notifications')
   @UseGuards(JwtAuthGuard)
   @ApiBody({ type: NotificationDto })
+  @ApiBearerAuth()
   @ApiResponse({ type: ResponseGeneric<NotificationDto> })
   async addNotifications(@Body() req: NotificationDto): Promise<ResponseGeneric<NotificationDto>> {
     const data = await this.notificationsService.addNotification(req);

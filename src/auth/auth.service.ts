@@ -7,7 +7,7 @@ import { AuthenticationResponse, UserDto } from './user.dto';
 import { plainToClass } from 'class-transformer';
 import { validate } from 'class-validator';
 import { InvalidRequestException, NotFoundException } from '../utilities/dtos/global-exception.filter';
-import * as bcrypt from 'bcrypt';
+import * as argon2 from 'argon2';
 @Injectable()
 export class AuthService {
     constructor(@InjectModel(User.name) private readonly userModel: Model<User>,
@@ -25,7 +25,7 @@ export class AuthService {
 
         if (!user) throw new NotFoundException("user not found");
         
-        if (!(await bcrypt.compare(data.password, user.password))) throw new NotFoundException(`user not found`);
+        if (!(await argon2.verify(data.password, user.password))) throw new NotFoundException(`user not found`);
 
         return await this.generateToken(data);
 
@@ -57,8 +57,7 @@ export class AuthService {
     }
 
     private async hashPass(password: string): Promise<string> {
-        const saltOrRounds = 10;
-        const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+        const hashedPassword = await argon2.hash(password);
         return hashedPassword;
     }
 

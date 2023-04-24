@@ -4,7 +4,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { User } from '../user.schema';
 import { JwtService } from '@nestjs/jwt';
 import { UserDto } from '../user.dto';
-import * as bcrypt from 'bcrypt';
+import * as argon2 from 'argon2';
 
 describe('AuthService', () => {
   let service: AuthService;
@@ -96,11 +96,11 @@ describe('AuthService', () => {
         lean: jest.fn().mockReturnValue({ exec: jest.fn().mockReturnValue(loginModel) }),
       } as any);
       
-      jest.spyOn(bcrypt, 'compare').mockResolvedValueOnce(false);
+      jest.spyOn(argon2, 'verify').mockResolvedValueOnce(false);
 
       //Act & Arrange
       await expect(service.loginUser(loginModel)).rejects.toThrow("user not found");
-      expect(bcrypt.compare).toBeCalled();
+      expect(argon2.verify).toBeCalled();
     });
 
     it('should return access token', async () => {
