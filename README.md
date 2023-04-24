@@ -46,7 +46,7 @@ example:
 
 - a GET endpoint `/messages` that gets the full list of user/notifications.  
 
-- add any kind of API authentication, explaining your choice 
+- add any kind of API authentication, explaining your choice <br>
 	JWT tokens because using JWTs as an API authentication method can provide a secure and scalable way to authenticate users without requiring the server to maintain session information. It is a widely adopted standard that is supported by many libraries and frameworks, making it easy to implement in your application, also JWTs are stateless meaningthat the server does not need to keep track of any session information and can be used for cross-domain authentication
 
 - Please include an OpenApi in the repo to try your project
@@ -58,14 +58,14 @@ example:
 ## Running the app
 
 ```bash
+#docker
+docker-compose up
+
 # development
 $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
 ## Test
@@ -73,9 +73,6 @@ $ npm run start:prod
 ```bash
 # unit tests
 $ npm run test
-
-# e2e tests
-$ npm run test:e2e
 
 # test coverage
 $ npm run test:cov
